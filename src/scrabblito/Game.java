@@ -31,7 +31,7 @@ public class Game {
         initWordMap();
         Board board = new Board();
         board.loadBoardFromFile("src/resources/board1.txt");
-        char[] tiles = new char[] { 'a', 's', 'd', 'e', 'b', 'm', 'b' };
+        char[] tiles = new char[] { 'c', 's', 'h', 'e', 'b', 'm', 'b' };
         Player playerBot = new PlayerBot(tiles, board);
         playerBot.getMove();
     }
@@ -67,26 +67,26 @@ public class Game {
         return wordMap.get(key);
     }
     
-    public static <T> Set<Set<T>> powerSet(Set<T> originalSet) {
-        Set<Set<T>> sets = new HashSet<Set<T>>();
+    public static <T> Set<List<T>> powerSet(List<T> originalSet) {
+        Set<List<T>> lists = new HashSet<List<T>>();
         if (originalSet.isEmpty()) {
-            sets.add(new HashSet<T>());
-            return sets;
+            lists.add(new ArrayList<T>());
+            return lists;
         }
         List<T> list = new ArrayList<T>(originalSet);
         T head = list.get(0);
-        Set<T> rest = new HashSet<T>(list.subList(1, list.size())); 
-        for (Set<T> set : powerSet(rest)) {
-            Set<T> newSet = new HashSet<T>();
-            newSet.add(head);
-            newSet.addAll(set);
-            sets.add(newSet);
-            sets.add(set);
+        List<T> rest = new ArrayList<T>(list.subList(1, list.size())); 
+        for (List<T> aList : powerSet(rest)) {
+            List<T> newList = new ArrayList<T>();
+            newList.add(head);
+            newList.addAll(aList);
+            lists.add(newList);
+            lists.add(aList);
         }		
-        return sets;
+        return lists;
     }
     
-    public static String setToKey(Set<String> set) {
+    public static String setToKey(List<String> set) {
         String key = "";
         for (String s : set)
             key += s;
